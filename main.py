@@ -1,4 +1,22 @@
+import json
+
 gastos = []
+
+
+def salvar_gastos():
+    with open("gastos.json", "w") as f:
+        json.dump(gastos, f)
+
+
+def carregar_gastos():
+    try:
+        with open("gastos.json", "r") as f:
+            return json.load(f)
+    except FileNotFoundError:
+        return []
+
+
+gastos = carregar_gastos()
 
 
 def adicionar_gastos(descriçao, valor, categoria):
@@ -23,6 +41,7 @@ while True:
         valor = float(input("Digite o Valor do Gasto Aqui: "))
         categoria = input("Coloque a categoria do Gasto Aqui: ").lower()
         adicionar_gastos(descriçao, valor, categoria)
+        salvar_gastos()  
 
     if escolha == "2":
         if not gastos:
@@ -50,5 +69,7 @@ while True:
         
     if escolha == "3":
         break
+
+
 
 
